@@ -1,0 +1,8 @@
+# Authentication config file
+
+users:
+  # "admin" here is username
+  admin:
+    name: "Admin"
+    # SHA-256 hash of password which can be computed with "echo -n password | shasum -a 256"
+    password: "password set in .env"
