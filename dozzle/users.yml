@@ -5,4 +5,5 @@ users:
   admin:
     name: "Admin"
     # SHA-256 hash of password which can be computed with "echo -n password | shasum -a 256"
-    password: "password set in .env"
+    # This placeholder string is dynamically replaced in the compose.yml command
+    password: "admin-password-hash-placeholder"
