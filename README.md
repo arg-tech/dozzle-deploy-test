@@ -23,7 +23,7 @@ Authenticate using the username `admin` and the password that you specified earl
 5) In the compose file, edit the `command` by duplicating the two lines that hash and insert the password into users.yml
 
 > [!NOTE]
-> If variable substitution inside `command` is meant to happen inside the container, a double `&` must be used instead of a single one. Otherwise, it will use the host env variable.
+> If variable substitution inside `command` is meant to happen inside the container, a double `&` must be used instead of a single one. Otherwise, it will use the host env variable. Use `docker container inspect` to see the parsed command.
 
 Injection of the secrets works by using `cat` to read from the password file, followed by hashing it, using sed to replace the placeholder hash in `users.yml` and finally running `/dozzle` because the Dozzle image requires it to be called at start. More information about secrets in Docker can found in the [official documentation]([url](https://docs.docker.com/compose/use-secrets/)https://docs.docker.com/compose/use-secrets/).
 
