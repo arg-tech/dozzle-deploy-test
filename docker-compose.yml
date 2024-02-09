@@ -4,11 +4,12 @@ services:
   dozzle:
     container_name: "dozzle-log-streamer_dozzle"
     build: ./dozzle
-    command: sh -c "
-      cat "$$ADMIN_PASSWORD_FILE" | sha256sum | cut -f1 -d' ' > /tmp/admin-hash && 
-      sed -i "s/admin-password-hash-placeholder/$$(cat /tmp/admin-hash)/" /data/users.yml && 
+    command: >
+      sh -c '
+      cat "$$ADMIN_PASSWORD_FILE" | tr -d "\n" | sha256sum | cut -f1 -d" " > /tmp/admin-hash &&
+      sed -i "s/admin-password-hash-placeholder/$$(cat /tmp/admin-hash)/" /data/users.yml &&
       /dozzle
-      "
+      '
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
