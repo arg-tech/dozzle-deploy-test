@@ -8,7 +8,7 @@ name: build
 
 trigger:
   branches:
-  - master
+  - deployment-test
   event:
     include:
     - custom
