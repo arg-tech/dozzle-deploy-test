@@ -48,7 +48,7 @@ steps:
       script_stop: false
       script: |
         cd ~/repos/${DRONE_REPO_NAME}
-        docker compose down
+        docker-compose down
 
   # Pull new changes from remote
   - name: pull
@@ -109,7 +109,7 @@ steps:
         cd ~/repos/${DRONE_REPO_NAME}
         git reset --hard ${DRONE_COMMIT}
         git clean -df
-        docker compose up -d
+        docker-compose up -d
 
 ---
 

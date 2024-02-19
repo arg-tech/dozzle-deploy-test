@@ -1,4 +1,4 @@
-name: "dozzle-log-streamer"
+# name: "dozzle-log-streamer"
 
 services:
   dozzle:
