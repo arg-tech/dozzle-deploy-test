@@ -1,4 +1,5 @@
 # name: "dozzle-log-streamer"
+version: '3'
 
 services:
   dozzle:
