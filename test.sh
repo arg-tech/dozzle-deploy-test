@@ -1,7 +1,5 @@
 #!/bin/bash
 
-secrets="$SECRETS_STAGING"
-
 [[ -z "$SECRETS" ]] && { echo "No secrets specified, skipping step" ; exit 0; }
 
 mkdir -p .secrets && cd "$_"
