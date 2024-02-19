@@ -47,6 +47,7 @@ steps:
         from_secret: ssh_key
       script_stop: false
       script: |
+        docker version
         cd ~/repos/${DRONE_REPO_NAME}
         docker compose down
 
