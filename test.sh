@@ -11,5 +11,5 @@ while secret=$(echo "$SECRETS" | cut -d "&" -f $i) ; [ -n "$secret" ] ;do
     key=$(echo "$secret" | cut -d "=" -f 1)
     value=$(echo "$secret" | cut -d "=" -f 2)
 
-    echo "$value" > "$key"
+    echo "$value" > "$key".txt
 done

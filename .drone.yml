@@ -68,7 +68,7 @@ steps:
     image: appleboy/drone-ssh
     environment:
       SECRETS:
-        from_secret: secrets_production
+        from_secret: secrets-production
     settings:
       host:
         - 212.71.250.173
@@ -92,7 +92,7 @@ steps:
             key=$(echo "$secret" | cut -d "=" -f 1)
             value=$(echo "$secret" | cut -d "=" -f 2)
 
-            echo "$value" > "$key"
+            echo "$value" > "$key".txt
         done
 
   # Deploy the services from commit
