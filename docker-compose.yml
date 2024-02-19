@@ -2,7 +2,7 @@
 
 services:
   dozzle:
-    container_name: "dozzle-log-streamer_dozzle"
+    container_name: dozzle-log-streamer_dozzle
     build: ./dozzle
     command: >
       sh -c '
