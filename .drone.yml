@@ -1,4 +1,4 @@
----
+# ---
 
 # Build step ensures that repository is correctly configured and won't fail on service removal or deployment
 
