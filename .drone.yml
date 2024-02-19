@@ -2,36 +2,36 @@
 
 # Build step ensures that repository is correctly configured and won't fail on service removal or deployment
 
-kind: pipeline
-type: docker
-name: build
+# kind: pipeline
+# type: docker
+# name: build
 
-trigger:
-  branches:
-  - deployment-test
-  event:
-    include:
-    - custom
-    - push
-    exclude:
-    - promote
-    - rollback
+# trigger:
+#   branches:
+#   - deployment-test
+#   event:
+#     include:
+#     - custom
+#     - push
+#     exclude:
+#     - promote
+#     - rollback
 
-volumes:
-  - name: socket
-    host:
-      path: /var/run/docker.sock
+# volumes:
+#   - name: socket
+#     host:
+#       path: /var/run/docker.sock
 
-steps:
-  # Deploy services and then remove them in an isolated environment
-  - name: build
-    image: docker
-    volumes:
-    - name: socket
-      path: /var/run/docker.sock
-    commands:
-      - docker compose up -d
-      - docker compose down
+# steps:
+#   # Deploy services and then remove them in an isolated environment
+#   - name: build
+#     image: docker
+#     volumes:
+#     - name: socket
+#       path: /var/run/docker.sock
+#     commands:
+#       - docker compose up -d
+#       - docker compose down
 
 ---
 
@@ -43,14 +43,13 @@ name: deploy
 
 trigger:
   branches:
-  - master
+  - deployment-test
   event:
     include:
     - promote
     - rollback
-    exclude:
-    - custom
     - push
+    - custom
 
 clone:
   disable: true
