@@ -47,6 +47,7 @@ steps:
         from_secret: ssh_key
       script_stop: false
       script: |
+        apt-get install docker-compose-plugin
         docker version
         cd ~/repos/${DRONE_REPO_NAME}
         docker compose down
