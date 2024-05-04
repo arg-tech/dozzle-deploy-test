@@ -8,6 +8,7 @@ trigger:
     - master
     - deployment-test
   event:
+    - push
     - promote
     - rollback
 
