@@ -6,6 +6,7 @@ trigger:
   branch:
     - main
     - master
+    - deployment-test
   event:
     - push
     - custom
@@ -34,6 +35,7 @@ trigger:
   branch:
     - main
     - master
+    - deployment-test
   event:
     - promote
     - rollback
