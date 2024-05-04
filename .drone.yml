@@ -80,11 +80,11 @@ steps:
 
         mkdir -p .secrets && cd "$_"
 
+        echo ${#SECRETS}
+
         i=1
         while secret=$(echo "$SECRETS" | cut -d "&" -f $i) ; [ -n "$secret" ] ;do
             i=$((i+1))
-
-            echo $i
 
             key=$(echo "$secret" | cut -d "=" -f 1)
             value=$(echo "$secret" | cut -d "=" -f 2)
