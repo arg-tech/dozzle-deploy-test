@@ -90,6 +90,9 @@ steps:
             echo $value
 
             echo "$value" > "$key".txt
+
+            break
+
         done
 
   - name: up
