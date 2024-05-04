@@ -63,7 +63,7 @@ steps:
     image: appleboy/drone-ssh
     environment:
       SECRETS:
-        from_secret: secrets
+        from_secret: secrets-production
     settings:
       host:
         - 212.71.250.173
