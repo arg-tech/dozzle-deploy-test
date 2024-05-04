@@ -87,7 +87,7 @@ steps:
             key=$(echo "$secret" | cut -d "=" -f 1)
             value=$(echo "$secret" | cut -d "=" -f 2)
 
-            echo $key
+            echo $value
 
             echo "$value" > "$key".txt
         done
