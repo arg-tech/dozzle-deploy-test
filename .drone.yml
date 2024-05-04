@@ -1,6 +1,137 @@
-kind: template
-load: docker-compose-(default).yaml
-data:
-    server: 212.71.250.173
-    user: cameron
-    secrets: secrets
+kind: pipeline
+type: docker
+name: build
+
+trigger:
+  branch:
+    - main
+    - master
+  event:
+    - push
+    - custom
+
+volumes:
+  - name: socket
+    host:
+      path: /var/run/docker.sock
+
+steps:
+  - name: build
+    image: docker
+    volumes:
+      - name: socket
+        path: /var/run/docker.sock
+    commands:
+      - docker compose up -d --build
+      - docker compose down
+
+---
+kind: pipeline
+type: docker
+name: deploy
+
+trigger:
+  branch:
+    - main
+    - master
+  event:
+    - promote
+    - rollback
+
+clone:
+  disable: true
+
+steps:
+  - name: clone
+    image: appleboy/drone-ssh
+    settings:
+      host:
+        - 212.71.250.173
+      username: cameron
+      key:
+        from_secret: ssh_key
+      script_stop: false
+      script: |
+        cd ~/repos
+        if [ ! -d "${DRONE_REPO_NAME}" ]; then
+          git clone "http://deploy:8q9tRbafCG9usOP8@git.arg.tech/arg-tech/${DRONE_REPO_NAME}"
+        fi
+
+  - name: down
+    image: appleboy/drone-ssh
+    settings:
+      host:
+        - 212.71.250.173
+      username: cameron
+      key:
+        from_secret: ssh_key
+      script_stop: false
+      script: |
+        cd ~/repos/${DRONE_REPO_NAME}
+        docker compose down
+
+  - name: pull
+    image: appleboy/drone-ssh
+    settings:
+      host:
+        - 212.71.250.173
+      username: cameron
+      key:
+        from_secret: ssh_key
+      script_stop: false
+      script: |
+        cd ~/repos/${DRONE_REPO_NAME}
+        git pull
+        git reset --hard ${DRONE_COMMIT}
+        git clean -df
+
+  - name: create-secrets
+    image: appleboy/drone-ssh
+    environment:
+      SECRETS:
+        from_secret: secrets
+    settings:
+      host:
+        - 212.71.250.173
+      username: cameron
+      key:
+        from_secret: ssh_key
+      envs:
+        - SECRETS
+      script_stop: false
+      script: |
+        cd ~/repos/${DRONE_REPO_NAME}
+        
+        [[ -z "$SECRETS" ]] && { echo "No secrets specified, skipping step" ; exit 0; }
+
+        mkdir -p .secrets && cd "$_"
+
+        i=1AOC U34E2M - 34"
+        while secret=$(echo "$SECRETS" | cut -d "&" -f $i) ; [ -n "$secret" ] ;do
+            i=$((i+1))
+
+            key=$(echo "$secret" | cut -d "=" -f 1)
+            value=$(echo "$secret" | cut -d "=" -f 2)
+
+            echo "$value" > "$key".txt
+        done
+
+  - name: up
+    image: appleboy/drone-ssh
+    settings:
+      host:
+        - 212.71.250.173
+      username: cameron
+      key:
+        from_secret: ssh_key
+      script_stop: false
+      script: |
+        cd ~/repos/${DRONE_REPO_NAME}
+        docker compose up -d --build
+
+---
+kind: secret
+name: ssh_key
+get:
+  path: kv/data/ssh/212.71.250.173
+  name: private
