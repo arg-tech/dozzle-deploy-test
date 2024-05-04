@@ -80,7 +80,7 @@ steps:
 
         mkdir -p .secrets && cd "$_"
 
-        i=1AOC U34E2M - 34"
+        i=1"
         while secret=$(echo "$SECRETS" | cut -d "&" -f $i) ; [ -n "$secret" ] ;do
             i=$((i+1))
 
