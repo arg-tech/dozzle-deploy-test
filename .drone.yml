@@ -57,8 +57,6 @@ steps:
       script: |
         cd ~/repos/${DRONE_REPO_NAME}
         git pull
-        git reset --hard ${DRONE_COMMIT}
-        git clean -df
 
   - name: create-secrets
     image: appleboy/drone-ssh
