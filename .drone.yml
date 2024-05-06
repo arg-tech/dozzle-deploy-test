@@ -56,6 +56,7 @@ steps:
       script_stop: false
       script: |
         cd ~/repos/${DRONE_REPO_NAME}
+        git checkout ${DRONE_TARGET_BRANCH}
         git fetch
         git reset --hard HEAD
         git merge '@{u}' 
