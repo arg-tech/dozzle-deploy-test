@@ -11,6 +11,7 @@ trigger:
     - push
     - promote
     - rollback
+    - pull_request
 
 clone:
   disable: true
