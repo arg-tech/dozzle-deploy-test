@@ -58,7 +58,7 @@ steps:
         cd ~/repos/${DRONE_REPO_NAME}
         git fetch
         git reset --hard HEAD
-        git merge '@{u}'
+        git merge '@{u}' 
 
   - name: create-secrets
     image: appleboy/drone-ssh
