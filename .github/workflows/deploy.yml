@@ -16,5 +16,5 @@ jobs:
           script: |
             cd ~/repos
             if [ ! -d "${{ github.event.repository.name }}" ]; then
-              git clone git@github.com:arg-tech/${{ github.event.repository.name }}.git
+              git clone https://github.com/arg-tech/${{ github.event.repository.name }}.git
             fi
