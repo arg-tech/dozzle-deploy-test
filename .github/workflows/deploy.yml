@@ -39,9 +39,8 @@ jobs:
         if: ${{ env.ARE_SECRETS_PRESENT == 'true' }}
         env:
           ARE_SECRETS_PRESENT: ${{ secrets.PRODUCTION_PROJECT_SECRETS != '' }}
-        uses: appleboy/ssh-action@v1.0.3
-        env:
           SECRETS: ${{ secrets.PRODUCTION_PROJECT_SECRETS }}
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.PRODUCTION_SSH_HOST }}
           username: ${{ secrets.PRODUCTION_SSH_USER }}
