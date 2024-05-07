@@ -38,13 +38,30 @@ jobs:
       - name: Create secrets
         if: ${{ env.ARE_SECRETS_PRESENT == 'true' }}
         env:
-          ARE_SECRETS_PRESENT: ${{ secrets.secrets-production != '' }}
+          ARE_SECRETS_PRESENT: ${{ secrets.PRODUCTION_PROJECT_SECRETS != '' }}
         uses: appleboy/ssh-action@v1.0.3
+        env:
+          SECRETS: ${{ secrets.PRODUCTION_PROJECT_SECRETS }}
         with:
           host: ${{ secrets.PRODUCTION_SSH_HOST }}
           username: ${{ secrets.PRODUCTION_SSH_USER }}
           key: ${{ secrets.PRODUCTION_SSH_KEY }}
+          envs: SECRETS
           script_stop: false
           script: |
-            echo ${{ env.ARE_SECRETS_PRESENT }}
+            cd ~/repos/${{ github.event.repository.name }}
+
+            [[ -z "$SECRETS" ]] && { echo "No secrets specified, skipping step" ; exit 0; }
+
+            mkdir -p .secrets && cd "$_"
+            i=1
+            while secret=$(echo "$SECRETS" | cut -d "&" -f $i) ; [ -n "$secret" ] ;do
+                i=$((i+1))
+
+                key=$(echo "$secret" | cut -d "=" -f 1)
+                value=$(echo "$secret" | cut -d "=" -f 2)
+                echo "$value" > "$key".txt
+
+                break
+            done
  
