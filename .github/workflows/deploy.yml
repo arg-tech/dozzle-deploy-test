@@ -1,3 +1,8 @@
+on:
+  push:
+    branches:
+      - main
+
 jobs:
   deploy:
-    uses: arg-tech/deploy-templates/.github/workflows/deploy22222.yml@main
+    uses: arg-tech/deploy-templates/.github/workflows/deploy.yml@main
