@@ -1,8 +1,12 @@
 on:
   push:
-    branches:
-      - deployment-test
+    branches: [deployment-test]
 
 jobs:
   deploy:
     uses: arg-tech/deploy-templates/.github/workflows/deploy.yml@main
+    with: 
+      production_host_nickname: primary
+    secrets:
+      production_ssh_key: ${{ secrets.PRODUCTION_SSH_KEY }}
+      production_project_secrets: ${{ secrets.PRODUCTION_PROJECT_SECRETS }}
