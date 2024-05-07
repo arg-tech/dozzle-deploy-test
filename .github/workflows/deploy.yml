@@ -36,7 +36,7 @@ jobs:
             git merge '@{u}'
 
       - name: Create secrets
-        if: ${{ env.ARE_SECRETS_PRESENT }}
+        if: ${{ env.ARE_SECRETS_PRESENT == 'true' }}
         env:
           ARE_SECRETS_PRESENT: ${{ secrets.secrets-production != '' }}
         uses: appleboy/ssh-action@v1.0.3
