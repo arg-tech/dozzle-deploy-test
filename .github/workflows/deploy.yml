@@ -4,7 +4,7 @@ on:
 
 jobs:
   deploy:
-    uses: arg-tech/deploy-templates/.github/workflows/deploy.yml@main
+    uses: arg-tech/deploy-templates/.github/workflows/deploy-prod.yml@main
     with: 
       production_host_nickname: primary
     secrets:
