@@ -6,4 +6,3 @@ on:
 jobs:
   deploy:
     uses: arg-tech/deploy-templates/.github/workflows/deploy.yml@main
-
