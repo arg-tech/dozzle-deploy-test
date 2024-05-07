@@ -6,7 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/deployment-test'
     steps:
-      - name: Clone the repository
+      - name: Clone repository
+        if: false
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.PRODUCTION_SSH_HOST }}
@@ -18,3 +19,33 @@ jobs:
             if [ ! -d "${{ github.event.repository.name }}" ]; then
               git clone https://github.com/arg-tech/${{ github.event.repository.name }}.git
             fi
+
+      - name: Pull latest code
+        if: false
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.PRODUCTION_SSH_HOST }}
+          username: ${{ secrets.PRODUCTION_SSH_USER }}
+          key: ${{ secrets.PRODUCTION_SSH_KEY }}
+          script_stop: false
+          script: |
+            cd ~/repos/${{ github.event.repository.name }}
+            git checkout ${{ github.ref_name }}
+            git fetch
+            git reset --hard HEAD
+            git merge '@{u}'
+
+      - name: Create secrets
+        if: ${{ secrets.secrets-production != '' }}
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.PRODUCTION_SSH_HOST }}
+          username: ${{ secrets.PRODUCTION_SSH_USER }}
+          key: ${{ secrets.PRODUCTION_SSH_KEY }}
+          script_stop: false
+          script: |
+            cd ~/repos/${{ github.event.repository.name }}
+            git checkout ${{ github.ref_name }}
+            git fetch
+            git reset --hard HEAD
+            git merge '@{u}'    
