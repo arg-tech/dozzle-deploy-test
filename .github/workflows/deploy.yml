@@ -2,7 +2,7 @@ name: CI
 on: [push, pull_request]
 jobs:
   deploy:
-    name: "Deploy to staging"
+    name: "Deploy to production"
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/deployment-test'
     steps:
@@ -12,4 +12,10 @@ jobs:
           host: ${{ secrets.PRODUCTION_SSH_HOST }}
           username: ${{ secrets.PRODUCTION_SSH_USER }}
           key: ${{ secrets.PRODUCTION_SSH_KEY }}
-          script: whoami
+          script_stop: false
+          script: |
+            cd ~/repos
+            echo ${{ github.event.repository.name }}
+            if [ ! -d "${{ github.event.repository.name }}" ]; then
+              echo yes
+            fi
