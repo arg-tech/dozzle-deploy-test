@@ -15,7 +15,6 @@ jobs:
           script_stop: false
           script: |
             cd ~/repos
-            echo ${{ github.event.repository.name }}
             if [ ! -d "${{ github.event.repository.name }}" ]; then
-              echo yes
+              git clone github.com/arg-tech/${{ github.event.repository.name }}
             fi
