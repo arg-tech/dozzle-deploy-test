@@ -1,4 +1,4 @@
-FROM amir20/dozzle:v6.5.2 as dozzle-base
+FROM amir20/dozzle:v6.3.3 as dozzle-base
 
 # Running Dozzle on top of Alpine to add a shell, and override its entrypoint with the command in compose.yml
 FROM alpine:3
