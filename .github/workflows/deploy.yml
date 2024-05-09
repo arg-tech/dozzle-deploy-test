@@ -1,4 +1,4 @@
-name: Deploy to production/staging
+name: Deploy
 on:
   push:
     branches: [main, master]
@@ -7,6 +7,7 @@ on:
 
 jobs:
   deploy:
+    name: Deploy
     uses: arg-tech/deploy-templates/.github/workflows/deploy.yml@main
     with: 
       production_host_nickname: primary
@@ -14,4 +15,3 @@ jobs:
       production_primary_ssh_key: ${{ secrets.PRODUCTION_PRIMARY_SSH_KEY }}
       staging_ssh_key: ${{ secrets.STAGING_SSH_KEY }}
       production_project_secrets: ${{ secrets.PRODUCTION_PROJECT_SECRETS }}
-
