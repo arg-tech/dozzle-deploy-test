@@ -1,17 +1,16 @@
 name: Deploy
 on:
   push:
-    branches: [main, master]
+    branches: main
   pull_request:
       branches: ['*']
+  pull_request_target:
+      types: closed
 
 jobs:
   deploy:
     name: Deploy to environment
     uses: arg-tech/deploy-templates/.github/workflows/default-deploy-template.yml@main
+    secrets: inherit
     with: 
-      production_host_nickname: primary
-    secrets:
-      production_primary_ssh_key: ${{ secrets.PRODUCTION_PRIMARY_SSH_KEY }}
-      staging_ssh_key: ${{ secrets.STAGING_SSH_KEY }}
-      production_project_secrets: ${{ secrets.PRODUCTION_PROJECT_SECRETS }}
+      target_production_server_nickname: primary
