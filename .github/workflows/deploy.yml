@@ -7,8 +7,9 @@ on:
 
 jobs:
   deploy:
-    name: Deploy to environment
+    name: Environments
     uses: arg-tech/deploy-templates/.github/workflows/default-deploy-template.yml@main
     secrets: inherit
     with: 
       target_production_server_nickname: primary
+                  
