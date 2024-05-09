@@ -1,3 +1,4 @@
+name: Deploy
 on:
   push:
     branches: [main, master]
@@ -6,7 +7,8 @@ on:
 
 jobs:
   deploy:
-    uses: arg-tech/deploy-templates/.github/workflows/deploy.yml@main
+    name: Deploy to environment
+    uses: arg-tech/deploy-templates/.github/workflows/default-deploy-template.yml@main
     with: 
       production_host_nickname: primary
     secrets:
