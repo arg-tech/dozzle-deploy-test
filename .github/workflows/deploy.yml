@@ -16,4 +16,3 @@ jobs:
       staging_ssh_key: ${{ secrets.STAGING_SSH_KEY }}
       production_project_secrets: ${{ secrets.PRODUCTION_PROJECT_SECRETS }}
 
-      
