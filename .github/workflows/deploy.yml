@@ -14,4 +14,4 @@ jobs:
       target_production_server_nickname: primary
       full_app_url: test1.amfws.arg.tech
       app_port: 85
-  
+   
