@@ -20,3 +20,4 @@ jobs:
       full_app_url: test1.amfws.arg.tech
       # The port that is exposed on localhost (must be the same as in docker-compose.yml)
       app_port: 9999
+ 
